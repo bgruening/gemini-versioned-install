@@ -22,7 +22,7 @@ import subprocess
 import sys
 
 remotes = {"requirements":
-           "http://share.gruenings.eu/requirements.txt",
+           "https://raw.githubusercontent.com/bgruening/gemini-versioned-install/master/requirements_0.9.1.txt",
            "cloudbiolinux":
            "https://github.com/chapmanb/cloudbiolinux.git",
            "gemini":
