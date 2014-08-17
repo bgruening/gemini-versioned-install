@@ -22,7 +22,7 @@ import subprocess
 import sys
 
 remotes = {"requirements":
-           "https://raw.github.com/arq5x/gemini/master/requirements.txt",
+           "http://share.gruenings.eu/requirements.txt",
            "cloudbiolinux":
            "https://github.com/chapmanb/cloudbiolinux.git",
            "gemini":
@@ -42,10 +42,10 @@ def main(args):
     print "Installing gemini..."
     install_conda_pkgs(anaconda)
     gemini = install_gemini(anaconda, remotes, args.datadir, args.tooldir, args.sudo)
-    cbl = get_cloudbiolinux(remotes["cloudbiolinux"])
-    fabricrc = write_fabricrc(cbl["fabricrc"], args.tooldir, args.datadir,
-                              "ubuntu", args.sudo)
     if args.install_tools:
+        cbl = get_cloudbiolinux(remotes["cloudbiolinux"])
+        fabricrc = write_fabricrc(cbl["fabricrc"], args.tooldir, args.datadir,
+                              "ubuntu", args.sudo)
         print "Installing associated tools..."
         install_tools(gemini["fab"], cbl["tool_fabfile"], fabricrc)
     os.chdir(work_dir)
@@ -108,11 +108,11 @@ def install_gemini(anaconda, remotes, datadir, tooldir, use_sudo):
             "cmd": os.path.join(anaconda["dir"], "bin", "gemini")}
 
 def install_conda_pkgs(anaconda):
-    pkgs = ["bx-python", "conda", "cython", "ipython", "jinja2", "nose", "numpy",
-            "pip", "pycrypto", "pyparsing", "pysam", "pyyaml",
-            "pyzmq", "pandas", "scipy"]
+    pkgs = ["bx-python=0.7.2", "conda=3.5.5", "cython=0.20.1", "ipython=2.1.0", "jinja2=2.7.2", "nose=1.3.3", "numpy=1.8.1",
+            "pip=1.5.6", "pycrypto=2.6.1", "pyparsing=2.0.1", "pysam=0.8.0", "pyyaml=3.11",
+            "pyzmq=14.3.0", "pandas=0.14.0", "scipy=0.14.0"]
     channels = ["-c", "https://conda.binstar.org/bcbio"]
-    subprocess.check_call([anaconda["conda"], "install", "--yes", "numpy"])
+    #subprocess.check_call([anaconda["conda"], "install", "--yes", "numpy"])
     subprocess.check_call([anaconda["conda"], "install", "--yes"] + channels + pkgs)
 
 def install_anaconda_python(args, remotes):
